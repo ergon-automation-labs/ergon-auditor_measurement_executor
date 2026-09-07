@@ -12,8 +12,6 @@ defmodule BotArmyAuditorMeasurementExecutor.MixProject do
         auditor_measurement_executor_bot: [
           applications: [bot_army_auditor_measurement_executor: :permanent]
         ]
-          applications: [bot_army_auditor_measurement_executor: :permanent]
-        ]
       ]
     ]
   end
