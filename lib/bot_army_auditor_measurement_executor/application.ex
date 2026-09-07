@@ -23,6 +23,7 @@ defmodule BotArmyAuditorMeasurementExecutor.Application do
       []
       |> maybe_add_repo()
       |> maybe_add_pulse_publisher()
+      |> maybe_add_consumer()
       |> maybe_add_workers()
 
     opts = [strategy: :one_for_one, name: BotArmyAuditorMeasurementExecutor.Supervisor]
@@ -42,6 +43,10 @@ defmodule BotArmyAuditorMeasurementExecutor.Application do
     else
       [{BotArmyAuditorMeasurementExecutor.PulsePublisher, []} | children]
     end
+  end
+
+  defp maybe_add_consumer(children) do
+    if @env == :test, do: children, else: [{BotArmyAuditorMeasurementExecutor.NATS.Consumer, []} | children]
   end
 
   defp maybe_add_workers(children) do
